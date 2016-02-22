@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>FRS DASHBOARD</title>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/style.css">
@@ -20,7 +19,7 @@
     </head>
     <body>
     <!--******************************* nav start ************************************-->
-      <nav class="navbar navbar-inverse navbar-static-top no_margin">
+      <nav class="navbar navbar-inverse navbar-static-top navbar-fixed-top no_margin">
         <div class="container-fluid">
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
@@ -30,13 +29,16 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand pull" href="#">FRS</a>
+            <a class="navbar-brand" href="#">FRS</a>
+            
+
           </div>
+
         </div><!-- /.container-fluid -->
       </nav>
     <!--******************************* nav ends ************************************-->
 
-      <div class="container-fluid">
+      <div class="container-fluid padding_because_fixed_navbar">
         <div class="row">
           <div class="col-sm-3 col-md-2 no_padding">
            <!-- Collect the nav links, forms, and other content for toggling -->
@@ -245,36 +247,36 @@
               <div class="row">
                 <div class="col-md-8">
                 <h3>Progress Graph</h3>
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#home">Articles</a></li>
-                    <li><a data-toggle="tab" href="#menu1">Ebooks</a></li>
-                    <li><a data-toggle="tab" href="#menu2">Videos</a></li>
-                    <li><a data-toggle="tab" href="#menu3">TestPapers</a></li>
+                  <ul class="nav nav-tabs" id="btn_graph">
+                    <li class="active"><a data-toggle="tab" href="#menu_1">Articles</a></li>
+                    <li ><a data-toggle="tab" href="#menu_2">Ebooks</a></li>
+                    <li><a data-toggle="tab" href="#menu_3">Videos</a></li>
+                    <li><a data-toggle="tab" href="#menu_4">TestPapers</a></li>
                   </ul>
 
                   <div class="tab-content">
-                    <div id="home" class="tab-pane fade in active">
+                    <div id="menu_1" class="tab-pane fade in active">
                       <h3>Articles</h3>
                       <div>
-                        <canvas id="canvas" height="450" width="600"></canvas>
+                        <canvas id="canvas1" height="450" width="600"></canvas>
                       </div>
                     </div>
-                    <div id="menu1" class="tab-pane fade">
+                    <div id="menu_2" class="tab-pane fade">
                       <h3>Ebooks</h3>
                       <div>
-                        <canvas id="canvas" height="450" width="600"></canvas>
+                        <canvas id="canvas2" height="450" width="600"></canvas>
                       </div>
                     </div>
-                    <div id="menu2" class="tab-pane fade">
+                    <div id="menu_3" class="tab-pane fade">
                       <h3>Videos</h3>
                       <div>
-                        <canvas id="canvas" height="450" width="600"></canvas>
+                        <canvas id="canvas3" height="450" width="600"></canvas>
                       </div>
                     </div>
-                    <div id="menu3" class="tab-pane fade">
+                    <div id="menu_4" class="tab-pane fade">
                       <h3>TestPapers</h3>
                       <div>
-                        <canvas id="canvas" height="450" width="600"></canvas>
+                        <canvas id="canvas4" height="450" width="600"></canvas>
                       </div>
                     </div>
                   </div>
@@ -369,14 +371,11 @@
       </nav>
 
 
-    
-
-
 
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
+      <script src="js/jquery.min.js"></script>
+      <script type="text/javascript" src="js/Chart.min.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
       <script src="js/bootstrap.min.js"></script>
       <script>
@@ -409,11 +408,21 @@
         }
 
         window.onload = function(){
-          var ctx = document.getElementById("canvas").getContext("2d");
+          var ctx = document.getElementById("canvas1").getContext("2d");
           window.myLine = new Chart(ctx).Line(lineChartData, {
             responsive: true
           });
         }
+
+       $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+          console.log(e.target) // activated tab
+          var id=e.target.getAttribute('href').split('_')[1];
+           var ctx = document.getElementById("canvas"+id).getContext("2d");
+          window.myLine = new Chart(ctx).Line(lineChartData, {
+            responsive: true
+          });
+        })
+
 
 
       </script>

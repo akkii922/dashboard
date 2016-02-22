@@ -7,6 +7,9 @@ a{
 .grey{
 	color:#555;
 }
+.padding_because_fixed_navbar{
+	padding-top: 50px;
+}
 .no_padding{
 	padding:0;
 }
